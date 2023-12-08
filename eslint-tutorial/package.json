@@ -1,0 +1,22 @@
+{
+  "name": "eslint-tutorial",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@typescript-eslint/eslint-plugin": "^6.13.2",
+    "@typescript-eslint/parser": "^6.13.2",
+    "eslint": "^8",
+    "eslint-config-airbnb-base": "^15",
+    "eslint-config-airbnb-typescript": "^17",
+    "eslint-plugin-import": "^2",
+    "typescript": "^5.3.3"
+  }
+}
