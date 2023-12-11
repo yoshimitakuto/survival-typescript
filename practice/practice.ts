@@ -257,3 +257,109 @@ const demoDataObject1: Shape = {
 
 console.log(toCss(demoDataObject));
 console.log(toCss(demoDataObject1));
+
+
+// Required<T>必須
+type Mandatory = Required<{
+  id: string;
+  active: boolean;
+  balance: number;
+  surname: string;
+  givenName: string;
+  email: string;
+}>;
+// Partial<T> オプショナル
+type Optional = Partial<{
+  index: number;
+  photo: string;
+  age: number;
+  company: string;
+  phoneNumber: string;
+  address: string;
+}>;
+// インターセクション型で合成（インターセクション型とは「両方の型」、ユニオン型は「どっちかの型」）
+type Parameter = Mandatory & Optional;
+const parameter: Parameter = {
+  id: "1",
+  active: true,
+  balance: 1,
+  surname: "summary",
+  givenName: "name",
+  email: "example"
+};
+
+
+// すべてのプロパティにreadonlyを適用する方法「as const」
+type Country = {
+  readonly countryName: string;
+  readonly areaName: string;
+};
+type ReadOnlyObjectType = {
+  readonly name: string;
+  no: number;
+  genre: string;
+  height: number;
+  readonly country: Country;
+};
+const readOnlyObjectData: ReadOnlyObjectType = {
+  name: "pikachu",
+  no: 25,
+  genre: "mouse pokemon",
+  height: 0.4,
+  country: {
+    countryName: "japan",
+    areaName: "asia",
+  },
+};
+// readOnlyObjectData.name = "pikachumause";
+// readOnlyObjectData.country.countryName = "mexico";
+
+
+// swith文の網羅性チェック
+type Extension = "js" | "ts" | "json";
+const printLang = (ext: Extension): void => {
+  switch(ext) {
+    case "js": {
+      console.log("javascript");
+      break;
+    }
+    case "ts": {
+      console.log("typescript");
+      break;
+    }
+    case "json": { // ここをコメントアウト後、defaultをコメントアウト解除
+      console.log("object type is json");
+      break;
+    }
+    // default: { // 網羅性のチェック(ユニオン型のタイプをswith分ですべてチェックしていないとエラーが発生する)
+    //   const exhaustivenessCheck: never = ext;
+    //   break;
+    // }
+  };
+};
+// swith文の網羅性チェック(例外による) こっちの方がわかりやすい！
+type Extension1 = "js" | "ts" | "json";
+class ExhaustivenessCheck extends Error {
+  constructor(value: never, message: string = `Unsupported type: ${value}`) {
+    super(value);
+  };
+};
+const printLang1 = (ext: Extension): void => {
+  switch(ext) {
+    case "js": {
+      console.log("javascript");
+      break;
+    }
+    case "ts": {
+      console.log("typescript");
+      break;
+    }
+    case "json": { // 試すにはここをコメントアウト
+      console.log("object type is json");
+      break;
+    }
+    default: { // 網羅性のチェック(ユニオン型のタイプをswitch分ですべてチェックしていないとエラーが発生する)
+      throw new ExhaustivenessCheck(ext);
+    }
+  };
+};
