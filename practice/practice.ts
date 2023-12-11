@@ -216,3 +216,44 @@ const enumFunction = (now: string): string => {
   return result;
 };
 enumFunction(stringEnum.MIDDLE);
+
+// 判別可能なユニオン型
+// オブジェクトの型で構成されたユニオン型
+// 各オブジェクトの型を判別するためのプロパティ(しるし)を持つ
+// このプロパティのことをディスクリミネータ(discriminator)と呼ぶ
+// ディスクリミネータの型はリテラル型などであること
+// ディスクリミネータさえ有れば、各オブジェクトの型は固有のプロパティを持ってもよい
+type Shape = 
+ | { type: "circle"; color: string; radius: string }
+ | { type: "squre"; color: string, size: string };
+type ResultToCss = Record<"background" | "borderRadius", string>;
+
+const toCss = (shape: Shape): ResultToCss => {
+  const { type, color } = shape;
+  switch(type) {
+    case "circle":
+      return {
+        background: color,
+        borderRadius: shape.radius
+      };
+    case "squre":
+     return {
+      background: color,
+      borderRadius: shape.size
+     };
+  };
+};
+
+const demoDataObject: Shape = {
+  type: "circle",
+  color: "red",
+  radius: "15px",
+};
+const demoDataObject1: Shape = {
+  type: "squre",
+  color: "bule",
+  size: "20px",
+};
+
+console.log(toCss(demoDataObject));
+console.log(toCss(demoDataObject1));
