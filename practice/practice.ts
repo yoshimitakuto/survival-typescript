@@ -363,3 +363,44 @@ const printLang1 = (ext: Extension): void => {
     }
   };
 };
+
+
+// unknown型を配列型に絞り込む
+const numberArrayValue: number[] = [1,2,3,4,5];
+const isNumberArray = (value: unknown): value is number[] => {
+  if(!Array.isArray(value)) {
+    return false;
+  };
+  return value.every((e) => typeof e === "number");
+};
+console.log(isNumberArray(numberArrayValue)); // true
+
+
+// unknown型をオブジェクト型に絞り込む
+type Email = Record<"from" | "to" | "title" | "subjest", string>;
+const emailValue: Email = {
+  from: "from",
+  to: "to",
+  title: "title",
+  subjest: "subjest",
+};
+const isEmail = (value: unknown): value is Email => {
+  if(typeof value !== "object" || value === null) {
+    return false;
+  };
+
+  // valueの値をあらかじめEmailタイプに指定することでオブジェクトのプロパティの型もチェックすることができる
+  const email = value as Record<keyof Email, string>;
+
+  if (typeof email.from !== "string") {
+    return false;
+  }
+  if (typeof email.to !== "string") {
+    return false;
+  }
+  if (typeof email.title !== "string") {
+    return false;
+  }
+  return typeof email.subjest === "string";
+};
+console.log(isEmail(emailValue)); // true
