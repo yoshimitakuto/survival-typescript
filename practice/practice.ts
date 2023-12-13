@@ -412,3 +412,25 @@ const numFunc: NuMFunc = (num: number): number => {
   return num + 1;
 };
 console.log(numFunc(1));
+
+
+// 関数をany型にしてあげれば関数はオブジェクトのためプロパティの付与ができる
+const propFun = (): any => {
+  return "Hello Propety with Function"
+};
+propFun.prop123 = 123;
+console.log(propFun());
+console.log(propFun.prop123);
+
+
+const helloFunc = (person?: string): string => {
+  person ??= "anonymous"; // Null合体代入演算子??=でデフォルト値を代入する
+  return `Hello ${person.toUpperCase()}`;
+};
+console.log(helloFunc("human"));
+console.log(helloFunc()); // ?をつけると入れなくても良い引数の値になる
+
+const defaultHelloFunc = (person: string = "anonymous"): string => {
+  return `Hello ${person.toUpperCase()}`;
+};
+console.log(defaultHelloFunc());
