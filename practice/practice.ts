@@ -434,3 +434,15 @@ const defaultHelloFunc = (person: string = "anonymous"): string => {
   return `Hello ${person.toUpperCase()}`;
 };
 console.log(defaultHelloFunc());
+
+
+// 可変長引数→残余引数
+const scores: number[] = [1,2,3,4,5,6,7,8,9,10];
+const longParameterFunc = (...scores: number[]): number => {
+  const result: number = scores.reduce((prevTotal, num) => {
+    return prevTotal + num;
+  }, 0);
+  return result;
+};
+console.log(`Num Total: ${longParameterFunc(1,2,3,4,5,6,7,8,9,10)}`);
+console.log(`Num Total: ${longParameterFunc(...scores)}`);
