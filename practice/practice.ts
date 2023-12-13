@@ -404,3 +404,11 @@ const isEmail = (value: unknown): value is Email => {
   return typeof email.subjest === "string";
 };
 console.log(isEmail(emailValue)); // true
+
+
+// 関数の型宣言
+type NuMFunc = (num: number) => number;
+const numFunc: NuMFunc = (num: number): number => {
+  return num + 1;
+};
+console.log(numFunc(1));
