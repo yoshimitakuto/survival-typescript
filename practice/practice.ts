@@ -446,3 +446,37 @@ const longParameterFunc = (...scores: number[]): number => {
 };
 console.log(`Num Total: ${longParameterFunc(1,2,3,4,5,6,7,8,9,10)}`);
 console.log(`Num Total: ${longParameterFunc(...scores)}`);
+
+
+// 分割代入引数（配列）
+const arrFun5 = ([num1, num2]: number[]): void => {
+  console.log(num1 + num2);
+};
+arrFun5([1,2]);
+
+// 分割代入引数（オブジェクト）
+const objFun5 = ({ weight, height }: { weight: number, height: number }): void => {
+  console.log({weight, height});
+};
+const weight = 60;
+const height = 170;
+objFun5({weight: weight, height: height});
+objFun5({weight, height}); // 引数名と同じ変数が定義済みであればプロパティ名を省略することも可能
+
+// 分割代入引数（デフォルト値）
+const arrFun6 = ([num1 = 1, num2 = 2]: number[]): void => {
+  console.log([num1 + num2]);
+};
+arrFun6([]);
+
+const objFun6 = ({ weight = 60, height = 170 }: { weight?: number, height?: number }): void => {
+  console.log({weight, height});
+};
+objFun6({}); // 型注釈のプロパティを?でオブションにしてあげる必要がある
+// 引数全体が無い、またはundefinedの問いに既定値を採用する（ = の部分）
+const objFun7 = ({ weight, height }: { weight?: number, height?: number } = { weight: 60, height: 170 }): void => {
+  console.log({weight, height});
+};
+objFun7(); // {"weight": 60,"height": 170} 
+objFun7({}); // {"weight": undefined,"height": undefined} 
+objFun7({ weight: 70, height: 180 });
