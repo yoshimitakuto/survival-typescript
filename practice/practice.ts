@@ -480,3 +480,27 @@ const objFun7 = ({ weight, height }: { weight?: number, height?: number } = { we
 objFun7(); // {"weight": 60,"height": 170} 
 objFun7({}); // {"weight": undefined,"height": undefined} 
 objFun7({ weight: 70, height: 180 });
+
+
+// キーワード引数(引数が複数存在する場合は有効な手段)
+// 理由は将来的に引数が追加され引数の順序を正したい時に位置引数だと可用性が損なわれるため
+type SortAddFuncType = Record<"country" | "city" | "ageMin" | "ageMax" | "order" | "sort", string | number>;
+type SortAddFuncOptionalType = Partial<Record<"country" | "city" | "ageMin" | "ageMax" | "order" | "sort", string | number>>;
+const sortAddFunc = ({country, city, ageMin, ageMax, order, sort}: SortAddFuncType): void => {
+  console.log(country, city, ageMin, ageMax, order, sort);
+};
+// sortAddFunc("JP", "Tokyo", 20, 50, "id", "asc"); // （キーワード引数を使用しないで呼び出し元の引数に値を入れてしまった悪い例）
+sortAddFunc({ // 良い例
+  country: "JP",
+  city: "Tokyo",
+  ageMin: 10,
+  ageMax: 20,
+  order: "id",
+  sort: "asc",
+});
+// キーワード引数自体をオプショナルにする
+const sortAddFuncOptional = ({country = "JP", city = "Tokyo", ageMin = 10, ageMax = 20, order = "id", sort = "asc"}: SortAddFuncOptionalType): void => {
+  console.log(country, city, ageMin, ageMax, order, sort);
+};
+sortAddFuncOptional({});
+sortAddFuncOptional({ ageMax: 50 });
