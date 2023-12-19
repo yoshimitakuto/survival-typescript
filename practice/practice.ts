@@ -504,3 +504,29 @@ const sortAddFuncOptional = ({country = "JP", city = "Tokyo", ageMin = 10, ageMa
 };
 sortAddFuncOptional({});
 sortAddFuncOptional({ ageMax: 50 });
+
+
+// 通常のstaticを考慮しないクラス
+class DefaultClass {
+  field: number;
+
+  constructor(field: number) {
+    this.field = field;
+  };
+
+  staticFieldaOutPut = (): void => {
+    console.log(this.field);
+  };
+};
+const defaultClass: DefaultClass = new DefaultClass(124);
+defaultClass.staticFieldaOutPut()
+//　インスタンスを作成しなくても実行できるようにする（staticキーワード）
+// そのためconstructorも不要となる（初期値を入れたい場合以外は）
+class StaticClass {
+  static field: number = 123;
+
+  static staticOutPut = (): void => {
+    console.log(StaticClass.field)
+  };
+};
+StaticClass.staticOutPut();
