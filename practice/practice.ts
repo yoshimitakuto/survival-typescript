@@ -530,3 +530,20 @@ class StaticClass {
   };
 };
 StaticClass.staticOutPut();
+
+
+// 直接インスタンスを作れないクラス（継承されることを前提としたクラス）
+abstract class AbstractClass {
+  protected abstract id: number;
+  protected abstract name: string;
+  abstractOutPut = (): void => {
+    console.log(this.id, this.name);
+  };
+};
+// 子クラスで親クラスの内容を再定義してメソッドを実行させる
+class AbstractChildrenClass extends AbstractClass {
+  protected id = 1;
+  protected name = "yocchan";
+};
+const child: AbstractChildrenClass = new AbstractChildrenClass();
+child.abstractOutPut();
