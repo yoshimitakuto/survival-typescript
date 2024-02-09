@@ -547,3 +547,31 @@ class AbstractChildrenClass extends AbstractClass {
 };
 const child: AbstractChildrenClass = new AbstractChildrenClass();
 child.abstractOutPut();
+
+// シングルトン
+interface IUser {
+  dispInfo: () => void;
+};
+
+class SingleTon implements IUser {
+  private static _instance: SingleTon;
+  private constructor() {}
+
+  public static get instance(): SingleTon {
+    if(!this._instance) {
+      console.log("新しくインスタンス作成")
+      this._instance = new SingleTon();
+    }
+
+    console.log("すでにインスタンスが存在")
+    return this._instance;
+  }
+
+  dispInfo = () => {
+    console.log("Instance is SingleTon");
+  }
+};
+
+const instance1 = SingleTon.instance;
+const instance2 = SingleTon.instance;
+const result = instance1.dispInfo();
