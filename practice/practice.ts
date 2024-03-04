@@ -575,3 +575,5 @@ class SingleTon implements IUser {
 const instance1 = SingleTon.instance;
 const instance2 = SingleTon.instance;
 const result = instance1.dispInfo();
+
+// お試しコミット用
